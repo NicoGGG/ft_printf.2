@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_putchar.c                                       :+:      :+:    :+:   */
+/*   pf_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/29 15:47:46 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/11/06 20:01:43 by nguelfi          ###   ########.fr       */
+/*   Created: 2017/04/13 17:06:17 by nguelfi           #+#    #+#             */
+/*   Updated: 2017/11/06 18:45:15 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdlib.h>
 
-int			pf_putchar(unsigned char c)
+char	*pf_strdup(const char *s1)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	int		i;
+	char	*dup;
 
-int			pf_putchar_conv(va_list ap, t_flag flag)
-{
-	unsigned char	c;
-	//
-	if (flag.width == 99)
-		pf_putstr("dummy test\n");
-	//
-	c = (unsigned char)va_arg(ap, int);
-	write(1, &c, 1);
-	return (1);
+	i = 0;
+	while (s1[i])
+		i++;
+	if ((dup = malloc(sizeof(char) * i + 1)) == NULL)
+		return (NULL);
+	while (i >= 0)
+	{
+		dup[i] = s1[i];
+		i--;
+	}
+	return (dup);
 }

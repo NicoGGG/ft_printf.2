@@ -6,50 +6,63 @@
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 16:00:37 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/10/29 17:52:27 by nguelfi          ###   ########.fr       */
+/*   Updated: 2017/11/06 19:56:20 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_conv		*init_conv(const char **format)
+static const char format_conv[] = "diouxXfFeEgGaAcsb";
+
+static const t_conv	g_conv[] =
 {
-	t_conv	*conv;
+	{'c', pf_putchar_conv},
+	{'s', pf_putstr_conv},
+	{'d', pf_putint},
+	{'i', pf_putint},
+	{'u', pf_putint},
+	{0, NULL}
+};
+
+t_flag		get_flags(const char **format)
+{
 	int		i;
+	t_flag	flag;
+	char	*format_flags;
 
 	i = 0;
-	conv = malloc(sizeof(t_conv));
-	while (i < 4)
-		conv->f[i++] = 0;
-	if (**format == 'd')
-		conv->f[2] = 1;
-	else if (**format == 's')
-		conv->f[1] = 1;
-	else if (**format == 'c')
-		conv->f[0] = 1;
-	return (conv);
-}
-
-void		init_ptr_tab(int (*f[])(va_list))
-{
-	f[0] = &pf_putchar_conv;
-	f[1] = &pf_putstr_conv;
-	f[2] = &pf_putint;
+	format_flags = pf_strdup("#-+0 ");
+	while (**format && !pf_strchr(format_conv, **format))
+	{
+		while (**format && *format_flags && pf_strchr(format_flags, **format))
+		{
+			flag.flag[i] = **format;
+			i++;
+			(*format)++;
+		}
+		if (**format && pf_isdigit(**format))
+			flag.width = pf_atoi(format);
+		if (**format && **format == '.')
+		{
+			(*format)++;
+			flag.precision = pf_atoi(format);
+		}
+	}
+	if (!(**format))
+		exit(1);
+	return (flag);
 }
 
 int			convert_args(const char **format, va_list ap)
 {
-	t_conv	*conv;
-	int		(*f[3])(va_list);
 	int		i;
+	t_flag	flag;
 
 	i = 0;
-	init_ptr_tab(f);
-	conv = init_conv(format);
-	while (conv->f[i] == 0 && i < 4)
+	flag = get_flags(format);
+	while (g_conv[i].format_conv && g_conv[i].format_conv != **format)
 		i++;
-	if (i == 4)
+	if (!g_conv[i].format_conv)
 		exit(1);
-	free(conv);
-	return (f[i](ap));
+	return (g_conv[i].f(ap, flag));
 }

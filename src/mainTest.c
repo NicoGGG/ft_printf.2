@@ -6,7 +6,7 @@
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 15:53:09 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/10/29 19:13:18 by nguelfi          ###   ########.fr       */
+/*   Updated: 2017/11/06 19:51:05 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int			pft_putchar(int c)
 
 int main(int argc, char const *argv[])
 {
-	int	ret;
+	if (argc == 0 && argv == NULL)
+		return (1);
 
 	ft_printf("/////TESTS SANS FLAGS/////\n\n");
 	ft_printf("\ntest 1: %d\n", ft_printf("coucoutest\n"));
@@ -55,7 +56,18 @@ int main(int argc, char const *argv[])
 
 	ft_printf("\n\nFIN TESTS COULEUR/////\n\n");
 
-	printf("%p\n", pft_putchar);
+	printf("%u\n", 21);
+	ft_printf("%u\n", 21);
+	printf("%i\n", -21);
+	ft_printf("%i\n", -21);
+	printf("%u\n", -21);
+	ft_printf("%u\n", -21);
+
+	printf("%10c\n", 'a');
+	ft_printf("field width: %10c\n", 'a');
+	ft_printf("precision: %.d\n", 10);
+	ft_printf("1 flag: %+d\n", 5);
+	ft_printf("all flags: %#-+ 012.10d\n", 42);
 
 	return 0;
 }

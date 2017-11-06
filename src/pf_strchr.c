@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_putchar.c                                       :+:      :+:    :+:   */
+/*   pf_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/29 15:47:46 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/11/06 20:01:43 by nguelfi          ###   ########.fr       */
+/*   Created: 2017/04/13 17:57:17 by nguelfi           #+#    #+#             */
+/*   Updated: 2017/11/06 18:20:43 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <string.h>
 
-int			pf_putchar(unsigned char c)
+char	*pf_strchr(const char *s, int c)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	char	t;
+	char	*tmp;
 
-int			pf_putchar_conv(va_list ap, t_flag flag)
-{
-	unsigned char	c;
-	//
-	if (flag.width == 99)
-		pf_putstr("dummy test\n");
-	//
-	c = (unsigned char)va_arg(ap, int);
-	write(1, &c, 1);
-	return (1);
+	t = (char)c;
+	tmp = (char *)s;
+	while (*tmp)
+	{
+		if (*tmp == t)
+			return (tmp);
+		else
+			tmp++;
+	}
+	if (t == 0)
+		return (tmp);
+	return (NULL);
 }

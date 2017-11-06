@@ -6,19 +6,22 @@
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 16:31:57 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/10/29 18:58:37 by nguelfi          ###   ########.fr       */
+/*   Updated: 2017/11/06 20:01:33 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			pf_putint(va_list ap)
+int			pf_putint(va_list ap, t_flag flag)
 {
 	char	buf[12];
 	int		nb;
 	int		neg;
 	int		i;
-
+	//
+	if (flag.width == 99)
+		pf_putstr("dummy test\n");
+	//
 	nb = (int)va_arg(ap, int);
 	i = 0;
 	neg = 0;
