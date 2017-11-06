@@ -6,7 +6,7 @@
 /*   By: nguelfi <nguelfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 16:00:37 by nguelfi           #+#    #+#             */
-/*   Updated: 2017/11/06 19:56:20 by nguelfi          ###   ########.fr       */
+/*   Updated: 2017/11/06 20:12:33 by nguelfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static const t_conv	g_conv[] =
 	{'u', pf_putint},
 	{0, NULL}
 };
+
+/* 	Decomposer la fonction suivantes en plusieurs sous fonctions pour la rendre plus
+	souple et facile a modifie pour les bonus futurs.
+*/
 
 t_flag		get_flags(const char **format)
 {
